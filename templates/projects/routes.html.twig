@@ -1,0 +1,15 @@
+{% extends "@Theme/layout.html.twig" %}
+
+{% block content %}
+    <h2>Routes</h2>
+    {% for route in project.getRoutes %}
+    <h3>
+        <a href="{{ path('projects_routes_view', { 'projectCode': project.getCode(), 'routeName': route.getName() } )}}">
+            {{ route.getPath() }}
+        </a>
+        <small>{{ route.getName() }}</small>
+    </h3>
+    <p><i>{{ route.getSummary() }}</i></p>
+    {% endfor %}
+    
+{% endblock %}

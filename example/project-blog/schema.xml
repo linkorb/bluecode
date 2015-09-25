@@ -1,0 +1,8 @@
+<schema>
+    <table name="post" description="The post table">
+        <column name="id" type="integer" unsigned="true" autoincrement="true" />
+        <column name="headline" type="string" length="64" />
+        <column name="body" type="text" />
+        <column name="published_at" type="datetime" />
+    </table>
+</schema>

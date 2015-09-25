@@ -4,6 +4,9 @@ namespace BlueCode\Repository;
 
 use BlueCode\Model\Project;
 use BlueCode\Model\Route;
+use BlueCode\Model\Concept;
+use BlueCode\Model\Table;
+use BlueCode\Model\Column;
 use Symfony\Component\Yaml\Parser as YamlParser;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Routing\Loader\YamlFileLoader;
@@ -51,6 +54,13 @@ class FileProjectRepository
         $config = $parser->parse(file_get_contents($filename));
         $project->setName($config['name']);
         $project->setDescription($config['description']);
+        $project->setSummary($config['summary']);
+        foreach ($config['concepts'] as $name => $description) {
+            $c = new Concept();
+            $c->setName($name);
+            $c->setDescription($description);
+            $project->addConcept($c);
+        }
 
         $locator = new FileLocator(array($path));
         $loader = new YamlFileLoader($locator);
@@ -60,6 +70,8 @@ class FileProjectRepository
             $r = new Route();
             $r->setName($name);
             $r->setPath($route->getPath());
+            $defaults = $route->getDefaults();
+            $r->setController($defaults['_controller']);
             $doc = $route->getOptions()['bluecode'];
             if (isset($doc['summary'])) {
                 $r->setSummary($doc['summary']);
@@ -69,6 +81,27 @@ class FileProjectRepository
             }
             $project->addRoute($r);
         }
+        
+        
+        $xml = simplexml_load_file($path .'/schema.xml');
+        foreach ($xml as $tableNode) {
+            //print_r($tableNode);
+            $table = new Table();
+            $table->setName((string)$tableNode['name']);
+            $table->setDescription((string)$tableNode['description']);
+            foreach ($tableNode as $columnNode) {
+                $column = new Column();
+                $column->setName((string)$columnNode['name']);
+                $column->setType((string)$columnNode['type']);
+                $column->setLength((string)$columnNode['length']);
+                $column->setComment((string)$columnNode['comment']);
+                $column->setAutoIncrement((string)$columnNode['autoincrement']);
+                $column->setUnsigned((string)$columnNode['unsigned']);
+                $table->addColumn($column);
+            }
+            $project->addTable($table);
+        }
+        //exit();
         //print_r($routes); exit();
         
     }

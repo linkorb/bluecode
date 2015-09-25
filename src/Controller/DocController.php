@@ -41,6 +41,33 @@ class DocController
             $data
         ));
     }
+    
+    public function tableIndexAction(Application $app, Request $request, $projectCode)
+    {
+        $repo = $app->getProjectRepository();
+        $project = $repo->getByCode($projectCode);
+
+        $data = array();
+        $data['project'] = $project;
+        return new Response($app['twig']->render(
+            'projects/schema.html.twig',
+            $data
+        ));
+    }
+    
+    
+    public function routeIndexAction(Application $app, Request $request, $projectCode)
+    {
+        $repo = $app->getProjectRepository();
+        $project = $repo->getByCode($projectCode);
+
+        $data = array();
+        $data['project'] = $project;
+        return new Response($app['twig']->render(
+            'projects/routes.html.twig',
+            $data
+        ));
+    }
 
     public function routeViewAction(Application $app, Request $request, $projectCode, $routeName)
     {
@@ -54,6 +81,23 @@ class DocController
         
         return new Response($app['twig']->render(
             'projects/route.html.twig',
+            $data
+        ));
+    }
+
+
+    public function tableViewAction(Application $app, Request $request, $projectCode, $tableName)
+    {
+        $repo = $app->getProjectRepository();
+        $project = $repo->getByCode($projectCode);
+        $table = $project->getTable($tableName);
+
+        $data = array();
+        $data['project'] = $project;
+        $data['table'] = $table;
+        
+        return new Response($app['twig']->render(
+            'projects/table.html.twig',
             $data
         ));
     }

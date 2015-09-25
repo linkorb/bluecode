@@ -66,4 +66,54 @@ class Project
         return $this->routes[$name];
     }
     
+    private $summary;
+    
+    public function getSummary()
+    {
+        return $this->summary;
+    }
+    
+    public function setSummary($summary)
+    {
+        $this->summary = $summary;
+        return $this;
+    }
+    
+    private $concepts = array();
+    
+    public function getConcept($name)
+    {
+        return $this->concepts[$name];
+    }
+    
+    public function getConcepts()
+    {
+        return $this->concepts;
+    }
+    
+    public function addConcept($concept)
+    {
+        $this->concepts[$concept->getName()] = $concept;
+        return $this;
+    }
+    
+    private $tables = array();
+    
+    public function getTables()
+    {
+        return $this->tables;
+    }
+    
+    public function addTable(Table $table)
+    {
+        $this->tables[$table->getName()] = $table;
+        return $this;
+    }
+    
+    public function getTable($name)
+    {
+        return $this->tables[$name];
+    }
+    
+    
 }

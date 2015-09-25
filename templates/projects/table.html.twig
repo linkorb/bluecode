@@ -1,0 +1,24 @@
+{% extends "@Theme/layout.html.twig" %}
+
+{% block content %}
+    <h2>Table: {{ table.getName() }}</h2>
+    <p class="lead">{{ table.getDescription() }}</p>
+    <ul>
+    {% for column in table.getColumns() %}
+        <li><b>{{ column.getName()}} {{ column.getComment() }}</b>
+            <ul>
+                <li>Type: {{ column.getType()}}</li>
+                {% if column.getLength() %}
+                <li>Length: {{ column.getLength()}}</li>
+                {% endif %}
+                {% if column.getAutoIncrement() %}
+                <li>AutoIncrement: {{ column.getAutoIncrement()}}</li>
+                {% endif %}
+                {% if column.getUnsigned() %}
+                <li>Unsigned: {{ column.getUnsigned()}}</li>
+                {% endif %}
+            </ul>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

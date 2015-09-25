@@ -57,5 +57,18 @@ class Route
         return $this;
     }
     
+    private $controller;
+    
+    public function getController()
+    {
+        return $this->controller;
+    }
+    
+    public function setController($controller)
+    {
+        $this->controller = $controller;
+        return $this;
+    }
+    
     
 }

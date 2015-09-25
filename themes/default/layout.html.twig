@@ -16,10 +16,12 @@
         <link rel="stylesheet" href="{{ path('assets', { 'postfix': '/bower/font-awesome/css/font-awesome.min.css' }) }}">
         <link rel="stylesheet" href="{{ path('assets', { 'postfix': '/bower/bootswatch-dist/css/bootstrap.min.css' }) }}">
 
+        <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="{{ path('assets', { 'postfix': '/style.css' }) }}">
     </head>
     <body>
         <!-- Fixed navbar -->
+        {#
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -48,16 +50,29 @@
                 </div><!--/.nav-collapse -->
             </div>
         </nav>
+        #}
 
         <div class="container" id="content">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    {% if project is defined %}
+                        <div style="border: 2px solid #ffffff; padding: 10px; border-radius: 15px; background: rgba(255, 255, 255, 0.2);">
+                            <h1>{{ project.getCode() }}: {{project.getName()}}</h1>
+                            <p class="lead">{{project.getSummary}}</p>
+                            <a class="btn btn-default" href="{{ path('projects_view', { 'projectCode': project.getCode() })}}">Home</a>
+                            <a class="btn btn-default"  href="{{ path('projects_routes_index', { 'projectCode': project.getCode() })}}">Routes</a>
+                            <a class="btn btn-default"  href="{{ path('projects_tables_index', { 'projectCode': project.getCode() })}}">Schema</a>
+                        </div>
+                    
+                        
+                    {% endif %}
                     {% block content %}{% endblock %}
                 </div>
+                <div class="col-md-2"></div>
             </div>
         </div> <!-- /container -->
-        
-        <hr />
+
         {#
         <footer>
             <div class="container">

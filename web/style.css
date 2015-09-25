@@ -1,7 +1,34 @@
 body {
     margin-top: 60px;
+    xbackground-color: #004080;
+    background-image: url('/blueprint2.jpg');
+
 }
 
+h1, h2, h3 {
+    color: #ffffff;
+    font-family: 'Architects Daughter', cursive;
+}
+
+h2 {
+    display: block-inline;
+    border-bottom: 1px solid #ffffff;
+}
+p, li, td {
+    color: #f0f0ff;
+}
+
+small {
+    color: #000000 !important;
+}
 .buttonbox {
     text-align: right;
+}
+
+a {
+    color: #66aae9 !important;
+}
+
+a:hover {
+    color: #ffffff;
 }

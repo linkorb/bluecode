@@ -28,9 +28,21 @@ projects_view:
     path: /projects/{projectCode}
     defaults:  { _controller: BlueCode\Controller\DocController::viewAction }
 
+projects_routes_index:
+    path: /projects/{projectCode}/routes
+    defaults:  { _controller: BlueCode\Controller\DocController::routeIndexAction }
+
 projects_routes_view:
     path: /projects/{projectCode}/routes/{routeName}
     defaults:  { _controller: BlueCode\Controller\DocController::routeViewAction }
+
+projects_tables_index:
+    path: /projects/{projectCode}/tables
+    defaults:  { _controller: BlueCode\Controller\DocController::tableIndexAction }
+
+projects_tables_view:
+    path: /projects/{projectCode}/tables/{tableName}
+    defaults:  { _controller: BlueCode\Controller\DocController::tableViewAction }
 
 # API routes
 

@@ -16,10 +16,8 @@ blog_view:
     path: /blog/{ postSlug }
     defaults:  { _controller: Acme\Example\Controller\BlogController::viewPostsAction }
     options:
-        haha:
-            hi: hi
         bluecode:
-            cool: yay
+            summary: View a post based on it's slug
             description: >
                 Based on the `postSlug`, the controller resolves the post in the database.
                 If it's found, decode it with markdown and show the contents.
@@ -27,5 +25,12 @@ blog_view:
                 * Red
                 * Green
                 * Blue
-                
-            summary: View a post based on it's slug
+
+api_v1_blog_view:
+    path: /api/v1/posts/{ postKey }
+    defaults:  { _controller: Acme\Example\Controller\ApiV1Controller::getPostAction }
+    options:
+        bluecode:
+            summary: Return a json response containing a post, retrieved by key
+            description: >
+                The key can be either a numeric id, or the post slug

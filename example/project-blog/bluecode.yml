@@ -1,4 +1,22 @@
 name: Blog project
-description: Super cool blog project, it's awesome
+summary: Super cool blog project, it's awesome
+description: >
+    This project will be used to manage blog post content.
+    It will include an admin interface, a public view, and a nice JSON/REST API.
+    
+    The posts are stored in a mysql database, and accessed using the repository pattern.
+    
+concepts:
+    blog: >
+        One installation of this application manages one "blog".
+        A blog can contain many posts.
+    post: >
+        A post contains the actual contents. It usually has a:
+            * headline: short summary
+            * slug: url / seo friendly version of the headline
+            * body: the content of the post, formatted using markdown
+            * published_at: publication date
+            * status: draft, published or archived
+            
 routes: routes.yml
 schema: schema.xml

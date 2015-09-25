@@ -1,0 +1,14 @@
+{% extends "@Theme/layout.html.twig" %}
+
+{% block content %}
+    <h2>Schema</h2>
+    {% for table in project.getTables() %}
+    <h3>
+        <a href="{{ path('projects_tables_view', { 'projectCode': project.getCode(), 'tableName': table.getName() } )}}">
+            {{ table.getName() }}
+        </a>
+        <small>{{ table.getDescription()}}</small>
+    </h3>
+    {% endfor %}
+    
+{% endblock %}
