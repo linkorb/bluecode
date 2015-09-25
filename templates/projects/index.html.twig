@@ -6,8 +6,9 @@
     <ul>
         {% for project in projects %}
         <li>
-            <a href="{{ path("projects_view", {"projectCode": project.getCode() })}}">#{{ project.code }}: {{ project.name }}</a>
-            <br />
+            <h3>
+                <a href="{{ path("projects_view", {"projectCode": project.getCode() })}}">#{{ project.code }}: {{ project.name }}</a>
+            </h3>
             <i>{{project.description}}</i>
         </li>
         {% endfor %}

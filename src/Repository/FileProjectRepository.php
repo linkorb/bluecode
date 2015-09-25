@@ -10,16 +10,17 @@ use BlueCode\Model\Column;
 use Symfony\Component\Yaml\Parser as YamlParser;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Routing\Loader\YamlFileLoader;
+use RuntimeException;
 
 use PDO;
 
 class FileProjectRepository
 {
-    private $path;
+    private $projects;
 
-    public function __construct($path)
+    public function __construct($projects)
     {
-        $this->path = $path;
+        $this->projects = $projects;
     }
 
     public function getByCode($code)
@@ -33,12 +34,22 @@ class FileProjectRepository
     public function getAll()
     {
         $res = array();
+        /*
         foreach(glob($this->path . '/*') as $file)
         {
-            //echo "filename: `$file` : filetype: " . filetype($file) . "<br />";
             if (file_exists($file . '/bluecode.yml')) {
                 $project = new Project();
                 $project->setCode(basename($file));
+                $this->loadProject($project);
+                $res[]= $project;
+            }
+        }
+        */
+
+        foreach($this->projects as $code=>$path) {
+            if (file_exists($path . '/bluecode.yml')) {
+                $project = new Project();
+                $project->setCode($code);
                 $this->loadProject($project);
                 $res[]= $project;
             }
@@ -48,8 +59,11 @@ class FileProjectRepository
     
     private function loadProject(Project $project)
     {
-        $path = $this->path . '/' . $project->getCode();
+        $path = $this->projects[$project->getCode()];
         $filename = $path . '/bluecode.yml';
+        if (!file_exists($filename)) {
+            throw new RuntimeException("File not found: " . $filename);
+        }
         $parser = new YamlParser();
         $config = $parser->parse(file_get_contents($filename));
         $project->setName($config['name']);

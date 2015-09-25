@@ -61,6 +61,15 @@ class Application extends SilexApplication
             }
         }
         $this['themePath'] = $themePath;
+        
+        $this->projects = array();
+        foreach ($parameters['projects'] as $code=>$path)
+        {
+            if ($path[0]!='/') {
+                $path = __DIR__ . '/../' . $path;
+            }
+            $this->projects[$code] = $path;
+        }
     }
 
     private function configurePdo()
@@ -170,7 +179,7 @@ class Application extends SilexApplication
     private $projectRepository;
     private function configureRepositories()
     {
-        $this->projectRepository = new FileProjectRepository(__DIR__  . '/../example');
+        $this->projectRepository = new FileProjectRepository($this->projects);
     }
 
     public function getProjectRepository()

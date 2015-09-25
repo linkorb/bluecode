@@ -2,6 +2,9 @@ debug: false
 baseurl: /skeleton
 pdo: mysql://root@localhost/sandbox_bluecode
 
+projects:
+    project-blog: example/project-blog
+    
 security:
     providers:
         UserBase:
