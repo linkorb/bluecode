@@ -1,0 +1,4 @@
+name: Blog project
+description: Super cool blog project, it's awesome
+routes: routes.yml
+schema: schema.xml

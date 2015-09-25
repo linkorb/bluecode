@@ -1,0 +1,10 @@
+debug: false
+baseurl: /skeleton
+pdo: mysql://root@localhost/sandbox_bluecode
+
+security:
+    providers:
+        UserBase:
+            url: userbase_api_url
+            username: userbase_username
+            password: userbase_password

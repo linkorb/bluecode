@@ -1,0 +1,16 @@
+{% extends "@Theme/layout.html.twig" %}
+
+{% block content %}
+    <h1>Projects ({{projects|length}})</h1>
+
+    <ul>
+        {% for project in projects %}
+        <li>
+            <a href="{{ path("projects_view", {"projectCode": project.getCode() })}}">#{{ project.code }}: {{ project.name }}</a>
+            <br />
+            <i>{{project.description}}</i>
+        </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

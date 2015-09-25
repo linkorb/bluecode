@@ -1,0 +1,31 @@
+frontpage:
+    path: /
+    defaults:  { _controller: Acme\Example\Controller\BlogController::frontpageAction }
+    options:
+        bluecode:
+            summary: The frontpage of the blog application
+
+blog_index:
+    path: /blog
+    defaults:  { _controller: Acme\Example\Controller\BlogController::listPostsAction }
+    options:
+        bluecode:
+            summary: List all the posts
+
+blog_view:
+    path: /blog/{ postSlug }
+    defaults:  { _controller: Acme\Example\Controller\BlogController::viewPostsAction }
+    options:
+        haha:
+            hi: hi
+        bluecode:
+            cool: yay
+            description: >
+                Based on the `postSlug`, the controller resolves the post in the database.
+                If it's found, decode it with markdown and show the contents.
+                
+                * Red
+                * Green
+                * Blue
+                
+            summary: View a post based on it's slug

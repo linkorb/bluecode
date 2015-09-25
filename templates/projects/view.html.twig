@@ -1,0 +1,24 @@
+{% extends "@Theme/layout.html.twig" %}
+
+{% block content %}
+    <h1>{{ project.getCode() }}: {{project.getName()}}</h1>
+    <p class="lead">{{project.getDescription}}</p>
+    
+    {#
+    <div class="buttonbox">
+        <a href="{{ path('projects_index' )}}" class="btn btn-default">Back</a>
+    </div>
+    #}
+    
+    <h2>Routes</h2>
+    {% for route in project.getRoutes %}
+    <h3>
+        <a href="{{ path('projects_routes_view', { 'projectCode': project.getCode(), 'routeName': route.getName() } )}}">
+            {{ route.getPath() }}
+        </a>
+        <small>{{ route.getName() }}</small>
+    </h3>
+    <p><i>{{ route.getSummary() }}</i></p>
+    {% endfor %}
+    
+{% endblock %}

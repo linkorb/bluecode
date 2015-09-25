@@ -1,0 +1,20 @@
+{% extends "@Theme/layout.html.twig" %}
+
+{% block content %}
+    <h1>
+        <a href="{{ path('projects_view', { 'projectCode': project.getCode })}}">
+        {{ project.getCode() }}</a>:
+        {{project.getName()}}
+    </h1>
+    <p class="lead">{{project.getDescription}}</p>
+    
+    <h2>Route: 
+        <a href="{{ path('projects_routes_view', { 'projectCode': project.getCode(), 'routeName': route.getName } )}}">{{ route.getName }}</a>
+        <code>{{ route.getPath }}</code>
+    </h2>
+    
+    <h3>Summary</h3>
+    <p>{{ route.getSummary() }}</p>
+    <h3>Description</h3>
+    <p>{{ route.getDescription() }}</p>
+{% endblock %}

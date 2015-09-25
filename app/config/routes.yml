@@ -1,0 +1,39 @@
+frontpage:
+    path: /
+    defaults:  { _controller: BlueCode\Controller\DocController::frontpageAction }
+
+# Authentication
+login:
+    path: /login
+    defaults:  { _controller: BlueCode\Controller\AuthenticationController::loginAction }
+    
+login_check:
+    path: /authentication/login_check
+
+# Assets
+
+assets:
+    path: /.{postfix}
+    defaults: { _controller: BlueCode\Controller\AssetsController::serveAction }
+    requirements:
+        postfix: .+
+        
+# Projects
+
+projects_index:
+    path: /projects
+    defaults:  { _controller: BlueCode\Controller\DocController::indexAction }
+
+projects_view:
+    path: /projects/{projectCode}
+    defaults:  { _controller: BlueCode\Controller\DocController::viewAction }
+
+projects_routes_view:
+    path: /projects/{projectCode}/routes/{routeName}
+    defaults:  { _controller: BlueCode\Controller\DocController::routeViewAction }
+
+# API routes
+
+api_root:
+    path: /api/v1
+    defaults:  { _controller: BlueCode\Controller\ApiController::rootAction }
