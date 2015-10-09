@@ -75,10 +75,13 @@ class FileProjectRepository
             $c->setDescription($description);
             $project->addConcept($c);
         }
+        
+        $routeFilename = $config['routes'];
+        $schemaFilename = $config['schema'];
 
         $locator = new FileLocator(array($path));
         $loader = new YamlFileLoader($locator);
-        $routes = $loader->load('routes.yml');
+        $routes = $loader->load($routeFilename);
         
         foreach ($routes as $name => $route) {
             $r = new Route();
@@ -97,7 +100,7 @@ class FileProjectRepository
         }
         
         
-        $xml = simplexml_load_file($path .'/schema.xml');
+        $xml = simplexml_load_file($path . '/' . $schemaFilename);
         foreach ($xml as $tableNode) {
             //print_r($tableNode);
             $table = new Table();
