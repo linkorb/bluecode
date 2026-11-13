@@ -1,0 +1,31 @@
+name: PHPUnit
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          tools: composer:v2, phpunit:13.4.3
+          coverage: none
+      # The Composer 1 lock lacks the content-hash required by Composer 2's
+      # autoloader generator. Install its pinned archives with Composer 2,
+      # then generate the autoload files with Composer 1.
+      - name: Install locked dependencies
+        run: |
+          composer install --no-interaction --prefer-dist --no-scripts --no-plugins --ignore-platform-reqs --no-autoloader
+          curl --fail --location --silent --show-error https://getcomposer.org/download/1.10.27/composer.phar --output /tmp/composer1.phar
+          echo '230d28fb29f3c6c07ab2382390bef313e36de17868b2bd23b2e070554cae23d2  /tmp/composer1.phar' | sha256sum -c -
+          php /tmp/composer1.phar dump-autoload --no-scripts --no-plugins
+      - name: Run unit tests
+        run: phpunit --no-configuration --bootstrap vendor/autoload.php --do-not-record-test-run-history test
